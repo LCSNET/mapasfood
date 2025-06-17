@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapFood - Entregador</title>
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
+    <link rel="stylesheet" href="../shared/style.css">
+    <style>
+        .delivery-icon { font-size: 24px; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-800">
+    <div class="card text-center w-full max-w-md mx-4 p-6">
+        <div id="login-view">
+            <h1 class="text-3xl font-bold text-yellow-400 mb-2">App do Entregador</h1>
+            <p class="text-gray-400 mb-6">Insira seu ID para começar a rota.</p>
+            <form id="login-form">
+                <input type="number" id="delivery-id-input" class="form-input text-center text-xl font-bold mb-4" placeholder="Seu ID" required>
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg"><i class="fas fa-motorcycle mr-2"></i> INICIAR</button>
+            </form>
+        </div>
+        <div id="tracking-view" class="hidden">
+            <div class="flex justify-between items-center w-full mb-4">
+                <h1 id="delivery-name" class="text-xl font-bold text-yellow-400">Entrega Ativa</h1>
+                <button id="stop-tracking-btn" class="text-sm bg-red-600 px-3 py-1 rounded-md hover:bg-red-700">Parar</button>
+            </div>
+            <div id="delivery-map-container" class="w-full h-64 rounded-lg my-4 bg-gray-700 shadow-lg"></div>
+            <div id="order-details-container" class="w-full text-left p-4 bg-gray-900 rounded-lg mb-6">
+                <p class="text-gray-400 text-sm">Entregar para:</p>
+                <p id="client-name" class="font-bold text-lg text-white">-</p>
+                <p id="client-address" class="text-gray-300 text-sm">-</p>
+                <p class="text-gray-400 text-sm mt-2">Pedido ID:</p>
+                <p id="order-id" class="font-bold text-yellow-400">-</p>
+            </div>
+            <button id="btn-mark-delivered" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg text-lg"><i class="fas fa-check-circle mr-2"></i> MARCAR COMO ENTREGUE</button>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+    <script src="delivery.js"></script>
+</body>
+</html>

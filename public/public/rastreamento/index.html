@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreamento de Pedido - ZapFood</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
+    <link rel="stylesheet" href="../shared/style.css">
+    <style>
+        body { background-color: #111827; }
+        #map { height: 70vh; border-radius: 0.5rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-gray-800 p-4 rounded-lg text-white text-center mb-4">
+            <h1 class="text-2xl font-bold text-yellow-400">Acompanhe seu Pedido!</h1>
+            <p>Status atual: <span id="status-text" class="font-bold">Carregando...</span></p>
+        </div>
+        <div id="map" class="w-full shadow-lg"></div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+    <script src="rastreamento.js"></script>
+</body>
+</html>

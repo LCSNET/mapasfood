@@ -1,0 +1,44 @@
+/* Importação do Tailwind é feita via CDN no HTML, este arquivo é para estilos customizados */
+body {
+    background-color: #111827; /* bg-gray-900 */
+    color: #f3f4f6; /* text-gray-100 */
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilos gerais para os cards */
+.card {
+    background-color: #1f2937; /* bg-gray-800 */
+    border-radius: 0.75rem; /* rounded-xl */
+    padding: 1.5rem; /* p-6 */
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Estilos para os status dos pedidos */
+.status-novo { background-color: #3b82f6; }
+.status-em-preparo { background-color: #f59e0b; }
+.status-pronto { background-color: #22c55e; }
+.status-em-rota { background-color: #8b5cf6; }
+.status-entregue { background-color: #6b7280; }
+.status-cancelado { background-color: #ef4444; }
+
+/* Input padrão para formulários */
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #111827; /* bg-gray-900 */
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid #4b5563; /* border-gray-600 */
+    color: white;
+}
+.form-input:focus {
+    outline: none;
+    border-color: #facc15; /* yellow-400 */
+    box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.5);
+}
+
+/* Estilos para o mapa Leaflet */
+.leaflet-container {
+    background: #374151; /* bg-gray-700 */
+}

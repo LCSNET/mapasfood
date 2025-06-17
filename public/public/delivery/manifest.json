@@ -1,0 +1,21 @@
+{
+  "name": "ZapFood Entregador",
+  "short_name": "ZapFood Entregas",
+  "start_url": "/delivery/index.html",
+  "display": "standalone",
+  "background_color": "#1f2937",
+  "theme_color": "#facc15",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/facc15/111827?text=🛵",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://placehold.co/512x512/facc15/111827?text=🛵",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

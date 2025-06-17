@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Gerenciamento - Pizzaria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- OpenLayers CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
+    <link rel="stylesheet" href="../shared/style.css">
+    <style>
+        .view { display: none; }
+        .view.active { display: block; }
+        .nav-link.active { background-color: #facc15; color: #1f2937; }
+        .modal-container { position: fixed; inset: 0; background-color: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; }
+        .map-container { z-index: 10; }
+        .kanban-board { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; min-height: 70vh; }
+        .kanban-column { flex: 1; min-width: 320px; background-color: #111827; border-radius: 0.75rem; display: flex; flex-direction: column; }
+        .kanban-title { padding: 0.75rem 1rem; font-weight: bold; border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; color: white; text-align: center; text-transform: uppercase; }
+        .kanban-cards { padding: 0.5rem; flex-grow: 1; display: flex; flex-direction: column; gap: 1rem; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; padding: 12px 24px; border-radius: 8px; z-index: 2000; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 p-4 md:p-8">
+    <header class="mb-6">
+        <h1 class="text-4xl font-bold text-yellow-400">Painel da Pizzaria</h1>
+        <nav class="mt-4 flex flex-wrap gap-2 md:gap-4 border-b-2 border-gray-700">
+            <a class="nav-link py-2 px-4 rounded-t-lg active" data-view="pedidos">Pedidos</a>
+            <a class="nav-link py-2 px-4 rounded-t-lg" data-view="cardapio">Gerenciar Cardápio</a>
+            <a class="nav-link py-2 px-4 rounded-t-lg" data-view="entregadores">Entregadores e Rastreio</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="pedidos-view" class="view active">
+            <div class="flex justify-end mb-4">
+                 <button id="btn-add-pedido" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><i class="fas fa-plus mr-2"></i>Novo Pedido Manual</button>
+            </div>
+            <div class="kanban-board">
+                <div class="kanban-column"><h2 class="kanban-title status-novo">Novos</h2><div class="kanban-cards" id="pedidos-novo"></div></div>
+                <div class="kanban-column"><h2 class="kanban-title status-em-preparo">Em Preparo</h2><div class="kanban-cards" id="pedidos-em-preparo"></div></div>
+                <div class="kanban-column"><h2 class="kanban-title status-pronto">Prontos</h2><div class="kanban-cards" id="pedidos-pronto"></div></div>
+                <div class="kanban-column"><h2 class="kanban-title status-em-rota">Em Rota</h2><div class="kanban-cards" id="pedidos-em-rota"></div></div>
+                <div class="kanban-column"><h2 class="kanban-title status-entregue">Entregues</h2><div class="kanban-cards" id="pedidos-entregue"></div></div>
+                <div class="kanban-column"><h2 class="kanban-title status-cancelado">Cancelados</h2><div class="kanban-cards" id="pedidos-cancelado"></div></div>
+            </div>
+        </section>
+
+        <section id="cardapio-view" class="view">
+             <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold text-yellow-300">Itens do Cardápio</h2>
+                <div>
+                    <button id="btn-add-categoria" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mr-2"><i class="fas fa-tags mr-2"></i>Nova Categoria</button>
+                    <button id="btn-add-produto" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="fas fa-plus mr-2"></i>Novo Produto</button>
+                </div>
+            </div>
+            <div id="cardapio-gerenciamento-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="entregadores-view" class="view">
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-1">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-semibold text-yellow-300">Entregadores</h2>
+                        <button id="btn-add-entregador" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"><i class="fas fa-user-plus mr-2"></i>Novo</button>
+                    </div>
+                    <div id="entregadores-lista" class="space-y-4 h-full"></div>
+                </div>
+                <div class="md:col-span-2 card map-container" id="map-container" style="height: 60vh; min-height: 400px;"></div>
+             </div>
+        </section>
+    </main>
+    
+    <div id="modal-container" class="modal-container hidden"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
